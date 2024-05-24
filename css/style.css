@@ -1,3 +1,143 @@
+@font-face {
+    font-family: pixel;
+    src: url(/fonts/Pixeled.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: pixel;
+}
+
+
 body {
-    background-color: aquamarine;
+    background-color: rgb(124, 173, 114);
+}
+
+div {
+    position: relative;
+    width: 50vw;
+    left: 25vw;
+    
+}
+
+h1 {
+    font-family: pixel;
+}
+
+
+img {
+    width: 50vw;
+    position: absolute;
+}
+
+#lamp_knop {
+    width: 8.5vw;
+    height: 4.5vw;
+    left: 41.5vw;
+    top: 6.5vw;
+    
+}
+
+#kast {
+    width: 17vw;
+    height: 14.5vw;
+    top: 31vw;
+    left: 0;
+   
+}
+
+#karel {
+    width: 4.5vw;
+    height: 8.5vw;
+    top: 22.5vw;
+    left: 45vw;
+    
+}
+
+#spiegel {
+    width: 11vw;
+    height: 11vw;
+    top: -26vw;
+    left: 22.5vw;
+  
+}
+
+#kast_groot {
+    display: none;
+}
+
+#terug {
+    width: 4.5vw;
+    height: 4.5vw;
+    top: 44vw;
+    left: 1.5vw;
+    position: absolute;
+}
+
+#terug_plaatje {
+    display: none;
+}
+
+#kast_groot p {
+    position: absolute;
+    font-size: 1.5vw;
+}
+
+#kast_groot p:first-of-type {
+    top: 6vw;
+    left: 14vw;
+}
+
+#kast_groot p:nth-last-of-type(2) {
+    top: 6vw;
+    left: 33vw;
+}
+
+#kast_groot p:last-of-type {
+    top: 29vw;
+    left: 33vw;
+}
+
+#kast_groot button {
+    position: absolute;
+    width: 8vw;
+    height: 4vw;
+    font-size: 1.2vw;
+    border-color: black;
+    border-style: solid;
+    border-width: 0.6vw;
+    background-color: greenyellow;
+}
+
+#monster {
+    top: 16vw;
+    left: 15vw;
+}
+
+#water {
+    top: 16vw;
+    left: 34vw;
+}
+
+#kaas {
+    top: 39vw;
+    left: 34vw;
+}
+
+#money {
+    position: absolute;
+    top: 25vw;
+    left: 80vw;
+
+}
+
+#bars {
+    position: absolute;
+    left: 2vw;
+    top: 25vw;
+}
+
+#karel_groot {
+    display: none;
 }
