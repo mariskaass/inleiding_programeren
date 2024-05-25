@@ -15,9 +15,10 @@ body {
 }
 
 div {
-    position: relative;
+    position: absolute;
     width: 50vw;
     left: 25vw;
+    top: 25vw;
     
 }
 
@@ -28,6 +29,15 @@ h1 {
 
 img {
     width: 50vw;
+    position: absolute;
+}
+
+button {
+    font-size: 1.2vw;
+    border-color: black;
+    border-style: solid;
+    border-width: 0.6vw;
+    background-color: greenyellow;
     position: absolute;
 }
 
@@ -42,25 +52,22 @@ img {
 #kast {
     width: 17vw;
     height: 14.5vw;
-    top: 31vw;
+    top: 35.5vw;
     left: 0;
-   
 }
 
 #karel {
     width: 4.5vw;
     height: 8.5vw;
-    top: 22.5vw;
+    top: 41.5vw;
     left: 45vw;
-    
 }
 
 #spiegel {
     width: 11vw;
     height: 11vw;
-    top: -26vw;
+    top: 1.5vw;
     left: 22.5vw;
-  
 }
 
 #kast_groot {
@@ -70,14 +77,11 @@ img {
 #terug {
     width: 4.5vw;
     height: 4.5vw;
-    top: 44vw;
-    left: 1.5vw;
-    position: absolute;
-}
-
-#terug_plaatje {
+    top: 69vw;
+    left: 26.5vw;
     display: none;
 }
+
 
 #kast_groot p {
     position: absolute;
@@ -100,14 +104,8 @@ img {
 }
 
 #kast_groot button {
-    position: absolute;
     width: 8vw;
     height: 4vw;
-    font-size: 1.2vw;
-    border-color: black;
-    border-style: solid;
-    border-width: 0.6vw;
-    background-color: greenyellow;
 }
 
 #monster {
@@ -140,4 +138,35 @@ img {
 
 #karel_groot {
     display: none;
+}
+
+#spiegel_groot {
+    display: none;
+}
+
+#spiegel_groot button {
+    width: 16vw;
+    height: 4vw;
+    top: 44.5vw;
+    left: 30vw;
+}
+
+#game_over {
+    display: none;
+    position: absolute;
+    top: 25vw;
+}
+
+#game_over p {
+    color: yellowgreen;
+    font-size: 5vw;
+    position: absolute;
+    left: 3.5vw;
+}
+
+#game_over button {
+    width: 15vw;
+    height: 5vw;
+    top: 20vw;
+    left: 17.5vw;
 }
