@@ -134,11 +134,41 @@ button {
     position: absolute;
     left: 2vw;
     top: 25vw;
+    width: 15vw;
 }
 
 #karel_groot {
     display: none;
 }
+
+#karel_groot button {
+    width: 13vw;
+    left: 32vw;
+}
+
+#knop_karel {
+    width: 6vw;
+    height: 6.5vw;
+    top: 33vw;
+    left: 10vw;
+}
+
+#song1 {
+    top: 17vw;
+}
+
+#song2 {
+    top: 25vw;
+}
+
+#song3 {
+    top: 33vw;
+}
+
+.karel_aan {
+    display: none;
+}
+
 
 #spiegel_groot {
     display: none;
@@ -170,3 +200,8 @@ button {
     top: 20vw;
     left: 17.5vw;
 }
+
+.rood {
+    color: red;
+}
+

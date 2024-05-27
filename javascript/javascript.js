@@ -1,34 +1,49 @@
-//constants
+//cCONSTANTEN
 const warning = document.querySelector('#warning');
 const button = document.querySelector('button');
-const karel = document.querySelector('#karel');
-const karel_groot = document.getElementById('karel_groot');
-const lamp_knop = document.querySelector('#lamp_knop');
-const home = document.getElementById('home');
-const kast = document.getElementById('kast_groot');
-const kast_klein = document.querySelector('#kast');
 const terug = document.getElementById('terug');
-const spiegel = document.getElementById('spiegel')
+//home
+const home = document.getElementById('home');
+const karel = document.querySelector('#karel');
+const lamp_knop = document.querySelector('#lamp_knop');
+const kast_klein = document.querySelector('#kast');
+const spiegel = document.getElementById('spiegel');
+//karel
+const karel_groot = document.getElementById('karel_groot');
+const karel_knop = document.getElementById('knop_karel')
+const karel_aan = document.getElementsByClassName('karel_aan')
+//kast
+const kast = document.getElementById('kast_groot');
+const monster = document.getElementById('monster');
+const water = document.getElementById('water');
+const kaas_eet = document.getElementById('kaas');
+
 const spiegel_groot = document.getElementById('spiegel_groot')
+//game over 
 const game_over = document.getElementById('game_over')
-const try_again = document.querySelector('#game_over button')
-//balkjes
+const try_again = document.querySelector('#try_again')
+//stats tekst
 const Hbar = document.querySelector('#H');
 const Ebar = document.getElementById('E');
 const Mbar = document.getElementById('M');
 const Kbar = document.getElementById('K');
 const money = document.getElementById('money');
-//buttons kast
-const monster = document.getElementById('monster');
-const water = document.getElementById('water');
-const kaas_eet = document.getElementById('kaas');
 
-//variables
+//muziekjes
+const audio = new Audio('/sound/emo.mp3')
+const song1 = new Audio('');
+const song2 = new Audio('');
+const song3 = new Audio('');
+
+
+//VARIABELEN
 let haarkleur = ['groen','blauw','rood'];
 let state_lamp = false;
 let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
-//balkjes
+let state_karel = false;
+
+//stats 
 // let health = 100;
 // let energy = 100;
 // let mood = 100;
@@ -36,16 +51,15 @@ let gameover = false;
 
 let geld = 1;
 
+//object voor waardes van health, energy, mood, kaas (hulp gehad van marco)
 let stats = {
-    health: 100,
+    health: 5,
     energy: 100,
     mood: 100,
     kaas: 100,
 }
 
-
-
-//functions
+//FUNCTIONS
 
 function give_warning(text) {
     warning.textContent = text;
@@ -126,7 +140,7 @@ function lamp_aanuit() {
 //functie voor de stats omlaag doen   (met hulp van marco voor hoe object werkt)
 function omlaag(key) {
     if (stats[key] > 0) {
-        stats[key] -= 1;
+        stats[key] --;
     }
 }
 
@@ -169,11 +183,44 @@ function drink_monster() {
     }
 }
 
-function dood() {
-    game_over.style.display = 'block'
+//karel aan & uit
+function karel_aanuit() {
+    if(state_karel === false) {
+        // karel_aan.forEach() => {
+
+        // }
+        state_karel = true
+    }else {
+        state_karel = false
+        karel_aan.style.display = 'none';
+    }
 }
 
-// update de tekst van de meters
+//game over
+function dood(cause) {
+    if(gameover === false) {
+        console.log('dood');
+        game_over.style.display = 'block'
+        gameover = true
+        //(hulp van marco voor switch)
+        switch(cause){ 
+            case 'health':
+                Hbar.classList.add('rood');
+                break;
+            case 'energy':
+                Ebar.classList.add('rood');
+                break;
+            case 'mood':
+                Mbar.classList.add('rood');
+                break;
+            case 'kaas':
+                Kbar.classList.add('rood');
+                break;
+        }
+    }
+}
+
+// update de tekst van de meters & kijk of alles boven de 0 is
 function update() {
     // if(stats.health > 100) {
     //     stats.health = 100;
@@ -187,7 +234,7 @@ function update() {
     // if(stats.kaas > 100) {
     //     stats.kaas = 100;
     // }
-    if(gameover == false) {
+    if(gameover === false) {
         Hbar.textContent = 'health ' + stats.health + '%';
         Ebar.textContent = 'energy ' + stats.energy + '%';
         Mbar.textContent = 'mood ' + stats.mood + '%';
@@ -195,20 +242,45 @@ function update() {
         money.textContent = 'money €' + geld;
     }
 
-    Object.keys(stats).forEach(key => {
+    Object.keys(stats).forEach((key) => {
         if(!stats[key]) {
-            dood();
-            gameover = true
+            dood(key);
         }
-        
+    
         if(stats[key] > 100) {
             stats[key] = 100;
         }
     });
 }
 
-//other stuff
+function speel_opnieuw() {
+    game_over.style.display = 'none';
+    Object.keys(stats).forEach((key) =>
+        stats[key] = 100
+    );
+    geld = 0;
+    gameover = false;
+    Hbar.classList.remove('rood');
+    Ebar.classList.remove('rood');
+    Mbar.classList.remove('rood');
+    Kbar.classList.remove('rood');
+    if(state_lamp == true) {
+        lamp_aanuit();
+    }
+    close(karel_groot);
+    close(spiegel_groot);
+    close(kast);
 
+}
+
+function muziekje() {
+    audio.play();
+}
+
+
+//other stuff
+karel_knop.addEventListener('click', karel_aanuit)
+button.addEventListener('click', muziekje)
 
 //eten & drinken
 kaas_eet.addEventListener('click', eet_kaas);
@@ -231,11 +303,14 @@ karel.addEventListener('click', () => {open(karel_groot)});
 terug.addEventListener('click', () => {close(spiegel_groot)});
 spiegel.addEventListener('click', () => {open(spiegel_groot)});
 
+//game opnieuw beginnen
+try_again.addEventListener('click', speel_opnieuw);
+
 //bars
-setInterval(() => {omlaag('health')}, 3000);
-setInterval(() => {omlaag('energy')}, 1500);
-setInterval(() => {omlaag('mood')}, 1000);
-setInterval(() => {omlaag('kaas')}, 2500);
+// setInterval(() => {omlaag('health')}, 3000);
+// setInterval(() => {omlaag('energy')}, 1500);
+// setInterval(() => {omlaag('mood')}, 1000);
+// setInterval(() => {omlaag('kaas')}, 2500);
 
 setInterval(geld_up, 2000);
 
