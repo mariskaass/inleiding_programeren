@@ -30,11 +30,10 @@ const Kbar = document.getElementById('K');
 const money = document.getElementById('money');
 
 //muziekjes
-const audio = new Audio('/sound/emo.mp3')
-const song1 = new Audio('');
-const song2 = new Audio('');
-const song3 = new Audio('');
 
+const  song1 = new Audio('/sound/doom.mp3')
+const song2 = new Audio('/sound/doom2.mp3')
+const song2 = new Audio('/sound/dr_mario.mp3')
 
 //VARIABELEN
 let haarkleur = ['groen','blauw','rood'];
@@ -42,12 +41,6 @@ let state_lamp = false;
 let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
 let state_karel = false;
-
-//stats 
-// let health = 100;
-// let energy = 100;
-// let mood = 100;
-// let kaas = 100;
 
 let geld = 1;
 
@@ -58,6 +51,8 @@ let stats = {
     mood: 100,
     kaas: 100,
 }
+
+
 
 //FUNCTIONS
 
@@ -94,13 +89,6 @@ function close(element){
 //     home.style.display = 'block'; 
 // }
 
-// function karel_open() {
-//     if(state_lamp) {
-//         home.style.display = 'none';
-//         karel_groot.style.display = 'block';
-//     }
-// }
-
 
 function lamp_aanuit() {
     if (state_lamp == true) {
@@ -116,24 +104,6 @@ function lamp_aanuit() {
 // function H_omlaag() {
 //    if(health >= 0) {
 //         health -= 1;
-//     }
-// }
-
-// function E_omlaag() {
-//     if(energy >= 0){
-//         energy -= 1;
-//     }
-// }
-
-// function M_omlaag() {
-//     if(mood > 0){
-//         mood -= 1;
-//     }
-// }
-
-// function K_omlaag() {
-//     if(kaas >= 0){
-//         kaas -= 1;
 //     }
 // }
 
@@ -186,9 +156,8 @@ function drink_monster() {
 //karel aan & uit
 function karel_aanuit() {
     if(state_karel === false) {
-        // karel_aan.forEach() => {
+       
 
-        // }
         state_karel = true
     }else {
         state_karel = false
@@ -222,18 +191,6 @@ function dood(cause) {
 
 // update de tekst van de meters & kijk of alles boven de 0 is
 function update() {
-    // if(stats.health > 100) {
-    //     stats.health = 100;
-    // }
-    // if(stats.energy > 100) {
-    //     stats.energy = 100;
-    // }
-    // if(stats.mood > 100) {
-    //     stats.mood = 100;
-    // }
-    // if(stats.kaas > 100) {
-    //     stats.kaas = 100;
-    // }
     if(gameover === false) {
         Hbar.textContent = 'health ' + stats.health + '%';
         Ebar.textContent = 'energy ' + stats.energy + '%';
@@ -274,8 +231,9 @@ function speel_opnieuw() {
 }
 
 function muziekje() {
-    audio.play();
+    song1.play
 }
+
 
 
 //other stuff
@@ -306,11 +264,7 @@ spiegel.addEventListener('click', () => {open(spiegel_groot)});
 //game opnieuw beginnen
 try_again.addEventListener('click', speel_opnieuw);
 
-//bars
-// setInterval(() => {omlaag('health')}, 3000);
-// setInterval(() => {omlaag('energy')}, 1500);
-// setInterval(() => {omlaag('mood')}, 1000);
-// setInterval(() => {omlaag('kaas')}, 2500);
+
 
 setInterval(geld_up, 2000);
 
