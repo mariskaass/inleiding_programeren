@@ -31,9 +31,9 @@ const money = document.getElementById('money');
 
 //muziekjes
 
-const  song1 = new Audio('/sound/doom.mp3')
-const song2 = new Audio('/sound/doom2.mp3')
-const song2 = new Audio('/sound/dr_mario.mp3')
+const  song1 = new Audio('/sound/doom.mp3');
+const  song2 = new Audio('/sound/doom2.mp3');
+const  song3 = new Audio('/sound/dr_mario.mp3');
 
 //VARIABELEN
 let haarkleur = ['groen','blauw','rood'];
@@ -41,6 +41,7 @@ let state_lamp = false;
 let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
 let state_karel = false;
+
 
 let geld = 1;
 
@@ -230,15 +231,35 @@ function speel_opnieuw() {
 
 }
 
-function muziekje() {
-    song1.play
+function music1() {
+    song1.play();
+    song2.pause();
+    song3.pause();
 }
+
+function music2() {
+    song1.pause();
+    song2.play();
+    song3.pause();
+}
+
+function music3() {
+    song1.pause();
+    song2.pause();
+    song3.play();
+}
+
+
 
 
 
 //other stuff
 karel_knop.addEventListener('click', karel_aanuit)
-button.addEventListener('click', muziekje)
+// button.addEventListener('click', muziekje)
+
+//bars
+setInterval(() => {omlaag(stats.health)}, 2000);
+
 
 //eten & drinken
 kaas_eet.addEventListener('click', eet_kaas);
