@@ -8,6 +8,7 @@ const karel = document.querySelector('#karel');
 const lamp_knop = document.querySelector('#lamp_knop');
 const kast_klein = document.querySelector('#kast');
 const spiegel = document.getElementById('spiegel');
+const me = document.getElementById('me')
 //karel
 const karel_groot = document.getElementById('karel_groot');
 const karel_knop = document.getElementById('knop_karel');
@@ -41,7 +42,7 @@ const  aan = new Audio('sound/JBL.mp3');
 const  uit = new Audio('sound/uit.mp3');
 
 //haarkleuren
-const groen = ['groen'];
+const groen = ['/foto/green', './foto/g_monster1', '/foto/g_monster2', '/foto/g_monster3', '/foto/g_monster4'];
 const rood = ['rood'];
 const roze = ['roze'];
 const blauw = ['blauw'];
@@ -163,6 +164,11 @@ function drink_monster() {
         geld_down(5);
         close(kast);
     }
+    for(let i = 0; i < 6; i++) {
+        setTimeout( () => {
+            me.src = '../foto/g_monster1'
+        }, i * 500)
+    }
 }
 
 //karel aan & uit
@@ -222,6 +228,7 @@ function bepaal_kleur() {
         haarkleur = blauw
     }
 }
+
 
 
 
@@ -296,11 +303,11 @@ function speel_opnieuw() {
 
 // button.addEventListener('click', muziekje)
 
-//bars
-// setInterval(() => {omlaag('health')}, 2000);
-// setInterval(() => {omlaag('energy')}, 2000);
-// setInterval(() => {omlaag('mood')}, 2000);
-// setInterval(() => {omlaag('kaas')}, 2000);
+bars
+setInterval(() => {omlaag('health')}, 2000);
+setInterval(() => {omlaag('energy')}, 2000);
+setInterval(() => {omlaag('mood')}, 2000);
+setInterval(() => {omlaag('kaas')}, 2000);
 
 
 //eten & drinken

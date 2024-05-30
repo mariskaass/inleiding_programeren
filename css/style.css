@@ -1,6 +1,6 @@
 @font-face {
     font-family: pixel;
-    src: url(fonts/Pixeled.ttf);
+    src: url(/fonts/Pixeled.ttf);
 }
 
 * {
@@ -40,6 +40,8 @@ button {
     background-color: greenyellow;
     position: absolute;
 }
+
+
 
 #lamp_knop {
     width: 8.5vw;
