@@ -34,11 +34,11 @@ const money = document.getElementById('money');
 
 //muziekjes
 
-const  song1 = new Audio('/sound/doom.mp3');
-const  song2 = new Audio('/sound/doom2.mp3');
-const  song3 = new Audio('/sound/dr_mario.mp3');
-const  aan = new Audio('/sound/JBL.mp3');
-const  uit = new Audio('/sound/uit.mp3');
+const  song1 = new Audio('./sound/doom.mp3');
+const  song2 = new Audio('./sound/doom2.mp3');
+const  song3 = new Audio('./sound/dr_mario.mp3');
+const  aan = new Audio('./sound/JBL.mp3');
+const  uit = new Audio('./sound/uit.mp3');
 
 //VARIABELEN
 let haarkleur = ['groen','blauw','rood'];
