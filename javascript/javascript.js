@@ -40,8 +40,14 @@ const  song3 = new Audio('sound/dr_mario.mp3');
 const  aan = new Audio('sound/JBL.mp3');
 const  uit = new Audio('sound/uit.mp3');
 
+//haarkleuren
+const groen = ['groen'];
+const rood = ['rood'];
+const roze = ['roze'];
+const blauw = ['blauw'];
+
 //VARIABELEN
-let haarkleur = ['groen','blauw','rood'];
+let haarkleur = groen
 let state_lamp = false;
 let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
@@ -179,6 +185,67 @@ function karel_aanuit() {
     }
 }
 
+function music1() {
+    song1.play();
+    song2.pause();
+    song3.pause();
+}
+
+function music2() {
+    song1.pause();
+    song2.play();
+    song3.pause();
+}
+
+function music3() {
+    song1.pause();
+    song2.pause();
+    song3.play();
+}
+
+
+//haarverf
+// function random() {
+//     const getal = 
+//     return(getal)
+// }
+
+function bepaal_kleur() {
+    const getal = Math.floor(Math.random() * 4)
+    if(getal == 0) {
+        haarkleur = groen
+    }else if(getal == 1) {
+        haarkleur = rood
+    }else if(getal == 2) {
+        haarkleur = roze
+    }else {
+        haarkleur = blauw
+    }
+}
+
+
+
+// update de tekst van de meters & kijk of alles boven de 0 is
+function update() {
+    if(gameover === false) {
+        Hbar.textContent = 'health ' + stats.health + '%';
+        Ebar.textContent = 'energy ' + stats.energy + '%';
+        Mbar.textContent = 'mood ' + stats.mood + '%';
+        Kbar.textContent = 'KAAS ' + stats.kaas + '%';
+        money.textContent = 'money €' + geld;
+    }
+
+    Object.keys(stats).forEach((key) => {
+        if(!stats[key]) {
+            dood(key);
+        }
+    
+        if(stats[key] > 100) {
+            stats[key] = 100;
+        }
+    });
+}
+
 //game over
 function dood(cause) {
     if(gameover === false) {
@@ -203,27 +270,6 @@ function dood(cause) {
     }
 }
 
-// update de tekst van de meters & kijk of alles boven de 0 is
-function update() {
-    if(gameover === false) {
-        Hbar.textContent = 'health ' + stats.health + '%';
-        Ebar.textContent = 'energy ' + stats.energy + '%';
-        Mbar.textContent = 'mood ' + stats.mood + '%';
-        Kbar.textContent = 'KAAS ' + stats.kaas + '%';
-        money.textContent = 'money €' + geld;
-    }
-
-    Object.keys(stats).forEach((key) => {
-        if(!stats[key]) {
-            dood(key);
-        }
-    
-        if(stats[key] > 100) {
-            stats[key] = 100;
-        }
-    });
-}
-
 function speel_opnieuw() {
     game_over.style.display = 'none';
     Object.keys(stats).forEach((key) =>
@@ -243,26 +289,6 @@ function speel_opnieuw() {
     close(kast);
 
 }
-
-function music1() {
-    song1.play();
-    song2.pause();
-    song3.pause();
-}
-
-function music2() {
-    song1.pause();
-    song2.play();
-    song3.pause();
-}
-
-function music3() {
-    song1.pause();
-    song2.pause();
-    song3.play();
-}
-
-
 
 
 
