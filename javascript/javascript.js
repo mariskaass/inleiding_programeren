@@ -10,8 +10,11 @@ const kast_klein = document.querySelector('#kast');
 const spiegel = document.getElementById('spiegel');
 //karel
 const karel_groot = document.getElementById('karel_groot');
-const karel_knop = document.getElementById('knop_karel')
-const karel_aan = document.getElementsByClassName('karel_aan')
+const karel_knop = document.getElementById('knop_karel');
+const karel_aan = document.getElementsByClassName('karel_aan');
+const muziek1 = document.getElementById('song1');
+const muziek2 = document.getElementById('song2');
+const muziek3 = document.getElementById('song3');
 //kast
 const kast = document.getElementById('kast_groot');
 const monster = document.getElementById('monster');
@@ -34,6 +37,8 @@ const money = document.getElementById('money');
 const  song1 = new Audio('/sound/doom.mp3');
 const  song2 = new Audio('/sound/doom2.mp3');
 const  song3 = new Audio('/sound/dr_mario.mp3');
+const  aan = new Audio('/sound/JBL.mp3');
+const  uit = new Audio('/sound/uit.mp3');
 
 //VARIABELEN
 let haarkleur = ['groen','blauw','rood'];
@@ -157,12 +162,20 @@ function drink_monster() {
 //karel aan & uit
 function karel_aanuit() {
     if(state_karel === false) {
-       
-
-        state_karel = true
+        for(let i = 0; i < karel_aan.length; i++) {
+            karel_aan[i].style.display = 'block';
+        }
+        state_karel = true;
+        aan.play();
     }else {
-        state_karel = false
-        karel_aan.style.display = 'none';
+        for(let i = 0; i < karel_aan.length; i++) {
+            karel_aan[i].style.display = 'none';
+        }
+        song1.pause();
+        song2.pause();
+        song3.pause();
+        uit.play();
+        state_karel = false;
     }
 }
 
@@ -254,11 +267,14 @@ function music3() {
 
 
 //other stuff
-karel_knop.addEventListener('click', karel_aanuit)
+
 // button.addEventListener('click', muziekje)
 
 //bars
-setInterval(() => {omlaag(stats.health)}, 2000);
+// setInterval(() => {omlaag('health')}, 2000);
+// setInterval(() => {omlaag('energy')}, 2000);
+// setInterval(() => {omlaag('mood')}, 2000);
+// setInterval(() => {omlaag('kaas')}, 2000);
 
 
 //eten & drinken
@@ -277,6 +293,11 @@ kast_klein.addEventListener('click', () => {open(kast)});
 //karel open en dicht doen
 terug.addEventListener('click', () => {close(karel_groot)});
 karel.addEventListener('click', () => {open(karel_groot)});
+//karel aan en uit 
+karel_knop.addEventListener('click', karel_aanuit);
+muziek1.addEventListener('click', music1);
+muziek2.addEventListener('click', music2);
+muziek3.addEventListener('click', music3);
 
 //spiegel open en dicht 
 terug.addEventListener('click', () => {close(spiegel_groot)});
