@@ -41,21 +41,42 @@ const  song3 = new Audio('sound/dr_mario.mp3');
 const  aan = new Audio('sound/JBL.mp3');
 const  uit = new Audio('sound/uit.mp3');
 
-//haarkleuren
-const groen = ['/foto/green', './foto/g_monster1', '/foto/g_monster2', '/foto/g_monster3', '/foto/g_monster4'];
-const rood = ['rood'];
-const roze = ['roze'];
-const blauw = ['blauw'];
+//HAARKLEUREN
+//spiegel
+const haarverf = document.getElementById('verf_knop');
+//animatie voor monster drinken
+const m_groen = ['foto/green.png', 'foto/g_monster1.png', 'foto/g_monster2.png', 'foto/g_monster3.png', 'foto/g_monster4.png', 'foto/g_monster3.png', 'foto/g_monster4.png', 'foto/green.png' ]
+const m_blauw = ['foto/blue.png', 'foto/b_monster1.png', 'foto/b_monster2.png', 'foto/b_monster3.png', 'foto/b_monster4.png', 'foto/b_monster3.png', 'foto/b_monster4.png', 'foto/blue.png' ]
+const m_roze = ['foto/pink.png', 'foto/p_monster1.png', 'foto/p_monster2.png', 'foto/p_monster3.png', 'foto/p_monster4.png', 'foto/p_monster3.png', 'foto/p_monster4.png', 'foto/pink.png' ]
+const m_rood = ['foto/red.png', 'foto/r_monster1.png', 'foto/r_monster2.png', 'foto/r_monster3.png', 'foto/r_monster4.png', 'foto/r_monster3.png', 'foto/r_monster4.png', 'foto/red.png' ]
+
+//animatie voor water drinken
+const w_groen = ['foto/green.png', 'foto/g_water1.png', 'foto/g_water2.png', 'foto/g_water3.png', 'foto/g_water4.png', 'foto/g_water3.png', 'foto/g_water4.png', 'foto/green.png']
+const w_blauw = ['foto/blue.png', 'foto/b_water1.png', 'foto/b_water2.png', 'foto/b_water3.png', 'foto/b_water4.png', 'foto/b_water3.png', 'foto/b_water4.png', 'foto/blue.png']
+const w_roze = ['foto/pink.png', 'foto/p_water1.png', 'foto/p_water2.png', 'foto/p_water3.png', 'foto/p_water4.png', 'foto/p_water3.png', 'foto/p_water4.png', 'foto/pink.png']
+const w_rood = ['foto/red.png', 'foto/r_water1.png', 'foto/r_water2.png', 'foto/r_water3.png', 'foto/r_water4.png', 'foto/r_water3.png', 'foto/r_water4.png', 'foto/red.png']
+
+//animatoe voor kaas eten
+const k_groen = ['foto/green.png', 'foto/g_kaas1.png', 'foto/g_kaas2.png', 'foto/g_kaas3.png', 'foto/g_kaas4.png', 'foto/g_kaas3.png', 'foto/g_kaas4.png', 'foto/green.png']
+const k_blauw = ['foto/blue.png', 'foto/b_kaas1.png', 'foto/b_kaas2.png', 'foto/b_kaas3.png', 'foto/b_kaas4.png', 'foto/b_kaas3.png', 'foto/b_kaas4.png', 'foto/blue.png']
+const k_roze = ['foto/pink.png', 'foto/p_kaas1.png', 'foto/p_kaas2.png', 'foto/p_kaas3.png', 'foto/p_kaas4.png', 'foto/p_kaas3.png', 'foto/p_kaas4.png', 'foto/pink.png']
+const k_rood = ['foto/red.png', 'foto/r_kaas1.png', 'foto/r_kaas2.png', 'foto/r_kaas3.png', 'foto/r_kaas4.png', 'foto/r_kaas3.png', 'foto/r_kaas4.png', 'foto/red.png']
+
+
 
 //VARIABELEN
-let haarkleur = groen
+let monster_animatie = m_groen;
+let water_animatie = w_groen;
+let kaas_animatie = k_groen;
+let slaap_animatie;
+let spiegel_kleur;
 let state_lamp = false;
 let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
 let state_karel = false;
 
 
-let geld = 1;
+let geld = 100;
 
 //object voor waardes van health, energy, mood, kaas (hulp gehad van marco)
 let stats = {
@@ -145,6 +166,11 @@ function eet_kaas() {
         stats.mood = stats.mood + 5;
         geld_down(4);
         close(kast);
+        for(let i = 0; i < kaas_animatie.length; i++) {
+            setTimeout( () => {
+                me.src = kaas_animatie[i]
+            }, i * 400)
+        }
    }
 }
 
@@ -153,7 +179,12 @@ function drink_water() {
         stats.health = stats.health + 2;
         geld_down(2);
         close(kast);
-    }
+        for(let i = 0; i < water_animatie.length; i++) {
+            setTimeout( () => {
+                me.src = water_animatie[i]
+            }, i * 400)
+        }
+    }   
 }
 
 function drink_monster() {
@@ -163,11 +194,11 @@ function drink_monster() {
         stats.mood = stats.mood + 3;
         geld_down(5);
         close(kast);
-    }
-    for(let i = 0; i < 6; i++) {
-        setTimeout( () => {
-            me.src = '../foto/g_monster1'
-        }, i * 500)
+        for(let i = 0; i < monster_animatie.length; i++) {
+            setTimeout( () => {
+                me.src = monster_animatie[i]
+            }, i * 400)
+        }
     }
 }
 
@@ -219,13 +250,26 @@ function music3() {
 function bepaal_kleur() {
     const getal = Math.floor(Math.random() * 4)
     if(getal == 0) {
-        haarkleur = groen
+        me.src = 'foto/green.png';
+        monster_animatie = m_groen;
+        water_animatie = w_groen;
+        kaas_animatie = k_groen
     }else if(getal == 1) {
-        haarkleur = rood
+        me.src = 'foto/red.png'
+        monster_animatie = m_rood;
+        water_animatie = w_rood;
+        kaas_animatie = k_rood;
     }else if(getal == 2) {
-        haarkleur = roze
+        me.src = 'foto/pink.png'
+        monster_animatie = m_roze;
+        water_animatie = w_roze;
+        kaas_animatie = k_roze;
+
     }else {
-        haarkleur = blauw
+        me.src = 'foto/blue.png'
+        monster_animatie = m_blauw;
+        water_animatie = w_blauw;
+        kaas_animatie = k_blauw;
     }
 }
 
@@ -243,7 +287,7 @@ function update() {
     }
 
     Object.keys(stats).forEach((key) => {
-        if(!stats[key]) {
+        if(stats[key] <= 0) {
             dood(key);
         }
     
@@ -304,10 +348,10 @@ function speel_opnieuw() {
 // button.addEventListener('click', muziekje)
 
 bars
-setInterval(() => {omlaag('health')}, 2000);
-setInterval(() => {omlaag('energy')}, 2000);
-setInterval(() => {omlaag('mood')}, 2000);
-setInterval(() => {omlaag('kaas')}, 2000);
+// setInterval(() => {omlaag('health')}, 2000);
+// setInterval(() => {omlaag('energy')}, 2000);
+// setInterval(() => {omlaag('mood')}, 2000);
+// setInterval(() => {omlaag('kaas')}, 2000);
 
 
 //eten & drinken
@@ -335,6 +379,7 @@ muziek3.addEventListener('click', music3);
 //spiegel open en dicht 
 terug.addEventListener('click', () => {close(spiegel_groot)});
 spiegel.addEventListener('click', () => {open(spiegel_groot)});
+haarverf.addEventListener('click', bepaal_kleur)
 
 //game opnieuw beginnen
 try_again.addEventListener('click', speel_opnieuw);
