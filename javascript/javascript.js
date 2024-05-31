@@ -1,6 +1,4 @@
 //cCONSTANTEN
-const warning = document.querySelector('#warning');
-const button = document.querySelector('button');
 const terug = document.getElementById('terug');
 //home
 const home = document.getElementById('home');
@@ -8,7 +6,9 @@ const karel = document.querySelector('#karel');
 const lamp_knop = document.querySelector('#lamp_knop');
 const kast_klein = document.querySelector('#kast');
 const spiegel = document.getElementById('spiegel');
+const lamp = document.querySelector('#lamp_uit');
 const me = document.getElementById('me')
+const music_small = document.getElementById('music_small')
 //karel
 const karel_groot = document.getElementById('karel_groot');
 const karel_knop = document.getElementById('knop_karel');
@@ -44,6 +44,7 @@ const  uit = new Audio('sound/uit.mp3');
 //HAARKLEUREN
 //spiegel
 const haarverf = document.getElementById('verf_knop');
+const haar = document.getElementById('haar')
 //animatie voor monster drinken
 const m_groen = ['foto/green.png', 'foto/g_monster1.png', 'foto/g_monster2.png', 'foto/g_monster3.png', 'foto/g_monster4.png', 'foto/g_monster3.png', 'foto/g_monster4.png', 'foto/green.png' ]
 const m_blauw = ['foto/blue.png', 'foto/b_monster1.png', 'foto/b_monster2.png', 'foto/b_monster3.png', 'foto/b_monster4.png', 'foto/b_monster3.png', 'foto/b_monster4.png', 'foto/blue.png' ]
@@ -63,38 +64,29 @@ const k_roze = ['foto/pink.png', 'foto/p_kaas1.png', 'foto/p_kaas2.png', 'foto/p
 const k_rood = ['foto/red.png', 'foto/r_kaas1.png', 'foto/r_kaas2.png', 'foto/r_kaas3.png', 'foto/r_kaas4.png', 'foto/r_kaas3.png', 'foto/r_kaas4.png', 'foto/red.png']
 
 
-
 //VARIABELEN
+//animaties & plaatjes veranderen
 let monster_animatie = m_groen;
 let water_animatie = w_groen;
 let kaas_animatie = k_groen;
-let slaap_animatie;
-let spiegel_kleur;
+let ik = 'foto/green.png'
+let slaap = 'foto/g_sleep.png'
+//states
 let state_lamp = false;
-let lamp = document.querySelector('#lamp_uit');
 let gameover = false;
 let state_karel = false;
-
-
+//geld
 let geld = 100;
 
 //object voor waardes van health, energy, mood, kaas (hulp gehad van marco)
 let stats = {
-    health: 5,
+    health: 100,
     energy: 100,
     mood: 100,
     kaas: 100,
 }
 
-
-
 //FUNCTIONS
-
-function give_warning(text) {
-    warning.textContent = text;
-}
-
-
 //openen en sluiten van kamers (kast, karel & spiegel)
 function open(element){
     if(state_lamp){
@@ -110,41 +102,30 @@ function close(element){
     home.style.display = 'block';
 }
 
-//versie 1 van openen en sluiten van kamers
-// function kast_open() {
-//     if(state_lamp){
-//         home.style.display = 'none';
-//         kast.style.display = 'block';
-//     }
-// }
-
-// function kast_dicht() {
-//     kast.style.display = 'none';
-//     home.style.display = 'block'; 
-// }
-
-
+//lamp aan en uit zetten
 function lamp_aanuit() {
-    if (state_lamp == true) {
+    if (state_lamp == true && state_karel === false) {
         lamp.src = 'foto/lamp_uit.png';
         state_lamp = false;
+        me.src = slaap
     }else {
         lamp.src = 'foto/lamp_aan.png';
         state_lamp = true;
+        me.src = ik
     }
 }
-
-//versie 1 van de stats omlaag doen
-// function H_omlaag() {
-//    if(health >= 0) {
-//         health -= 1;
-//     }
-// }
 
 //functie voor de stats omlaag doen   (met hulp van marco voor hoe object werkt)
 function omlaag(key) {
     if (stats[key] > 0) {
         stats[key] --;
+    }
+}
+
+//energie omhoog als lamp uit is
+function slapen() {
+    if(state_lamp == false && stats.energy <= 98) {
+        stats.energy += 2
     }
 }
 
@@ -176,7 +157,7 @@ function eet_kaas() {
 
 function drink_water() {
     if(geld >= 2) {
-        stats.health = stats.health + 2;
+        stats.health = stats.health + 5;
         geld_down(2);
         close(kast);
         for(let i = 0; i < water_animatie.length; i++) {
@@ -188,7 +169,7 @@ function drink_water() {
 }
 
 function drink_monster() {
-    if(geld >= 5) {
+    if(geld >= 5 && stats.health >= 4) {
         stats.health = stats.health - 4;
         stats.energy = stats.energy + 5;
         stats.mood = stats.mood + 3;
@@ -209,6 +190,7 @@ function karel_aanuit() {
             karel_aan[i].style.display = 'block';
         }
         state_karel = true;
+        music_small.style.display = 'block'
         aan.play();
     }else {
         for(let i = 0; i < karel_aan.length; i++) {
@@ -218,10 +200,11 @@ function karel_aanuit() {
         song2.pause();
         song3.pause();
         uit.play();
+        music_small.style.display = 'none'
         state_karel = false;
     }
 }
-
+//muziek aan en uit zetten
 function music1() {
     song1.play();
     song2.pause();
@@ -241,40 +224,45 @@ function music3() {
 }
 
 
-//haarverf
-// function random() {
-//     const getal = 
-//     return(getal)
-// }
-
+//random haarkleur bepalen en goede plaatjes selecteren
 function bepaal_kleur() {
-    const getal = Math.floor(Math.random() * 4)
-    if(getal == 0) {
-        me.src = 'foto/green.png';
-        monster_animatie = m_groen;
-        water_animatie = w_groen;
-        kaas_animatie = k_groen
-    }else if(getal == 1) {
-        me.src = 'foto/red.png'
-        monster_animatie = m_rood;
-        water_animatie = w_rood;
-        kaas_animatie = k_rood;
-    }else if(getal == 2) {
-        me.src = 'foto/pink.png'
-        monster_animatie = m_roze;
-        water_animatie = w_roze;
-        kaas_animatie = k_roze;
+    if(geld >= 20) {
+        const getal = Math.floor(Math.random() * 3);
 
-    }else {
-        me.src = 'foto/blue.png'
-        monster_animatie = m_blauw;
-        water_animatie = w_blauw;
-        kaas_animatie = k_blauw;
+        if(getal == 0 && monster_animatie != m_rood) {
+            ik = 'foto/red.png'
+            monster_animatie = m_rood;
+            water_animatie = w_rood;
+            kaas_animatie = k_rood;
+            slaap = 'foto/r_sleep.png'
+            haar.src = 'foto/haar_rood.png';
+        }else if(getal == 1 && monster_animatie != m_roze) {
+            ik = 'foto/pink.png'
+            monster_animatie = m_roze;
+            water_animatie = w_roze;
+            kaas_animatie = k_roze;
+            slaap = 'foto/p_sleep.png'
+            haar.src = 'foto/haar_roze.png';
+        }else if(getal == 2 && monster_animatie != m_blauw) {
+            ik = 'foto/blue.png'
+            monster_animatie = m_blauw;
+            water_animatie = w_blauw;
+            kaas_animatie = k_blauw;
+            slaap = 'foto/b_sleep.png'
+            haar.src = 'foto/haar_blauw.png';
+        }else {
+            ik = 'foto/green.png';
+            monster_animatie = m_groen;
+            water_animatie = w_groen;
+            kaas_animatie = k_groen
+            slaap = 'foto/g_sleep.png'
+            haar.src = 'foto/haar_groen.png';
+        }
+        geld -= 20;
+        me.src = ik
+        close(spiegel_groot);
     }
 }
-
-
-
 
 // update de tekst van de meters & kijk of alles boven de 0 is
 function update() {
@@ -285,22 +273,21 @@ function update() {
         Kbar.textContent = 'KAAS ' + stats.kaas + '%';
         money.textContent = 'money €' + geld;
     }
-
     Object.keys(stats).forEach((key) => {
-        if(stats[key] <= 0) {
-            dood(key);
-        }
-    
         if(stats[key] > 100) {
             stats[key] = 100;
         }
-    });
+
+        if(stats[key] <= 0) {
+            dood(key);
+        }  
+    }); 
+    slapen()
 }
 
 //game over
 function dood(cause) {
     if(gameover === false) {
-        console.log('dood');
         game_over.style.display = 'block'
         gameover = true
         //(hulp van marco voor switch)
@@ -320,7 +307,7 @@ function dood(cause) {
         }
     }
 }
-
+//speel opnieuw
 function speel_opnieuw() {
     game_over.style.display = 'none';
     Object.keys(stats).forEach((key) =>
@@ -338,21 +325,17 @@ function speel_opnieuw() {
     close(karel_groot);
     close(spiegel_groot);
     close(kast);
-
 }
 
-
-
-//other stuff
-
-// button.addEventListener('click', muziekje)
-
-bars
-// setInterval(() => {omlaag('health')}, 2000);
-// setInterval(() => {omlaag('energy')}, 2000);
-// setInterval(() => {omlaag('mood')}, 2000);
-// setInterval(() => {omlaag('kaas')}, 2000);
-
+//stats omlaag doen 
+setInterval(() => {omlaag('health')}, 2000);
+setInterval(() => {omlaag('energy')}, 1000);
+setInterval(() => {omlaag('mood')}, 2000);
+setInterval(() => {omlaag('kaas')}, 1500);
+//geld omhoog
+setInterval(geld_up, 2000);
+//tekst enzo updaten/ checken
+setInterval(update, 500);
 
 //eten & drinken
 kaas_eet.addEventListener('click', eet_kaas);
@@ -361,7 +344,6 @@ monster.addEventListener('click', drink_monster);
 
 //lamp aan en uit
 lamp_knop.addEventListener('click', lamp_aanuit);
-
 
 //kast open en dicht doen
 terug.addEventListener('click', () => {close(kast)});
@@ -383,12 +365,3 @@ haarverf.addEventListener('click', bepaal_kleur)
 
 //game opnieuw beginnen
 try_again.addEventListener('click', speel_opnieuw);
-
-
-
-setInterval(geld_up, 2000);
-
-setInterval(update, 500);
-
-//console log
-console.log('hallo');

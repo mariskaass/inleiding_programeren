@@ -22,9 +22,11 @@ div {
     
 }
 
-h1 {
+.tekst {
     font-family: pixel;
+    text-align: center;
 }
+
 
 
 img {
@@ -129,7 +131,7 @@ button {
     position: absolute;
     top: 25vw;
     left: 80vw;
-
+    font-size: 1.6vw;
 }
 
 #bars {
@@ -137,6 +139,7 @@ button {
     left: 2vw;
     top: 25vw;
     width: 15vw;
+    font-size: 1.5vw;
 }
 
 #karel_groot {
@@ -153,6 +156,10 @@ button {
     height: 6.5vw;
     top: 33vw;
     left: 10vw;
+}
+
+#music_small {
+    display: none;
 }
 
 #song1 {
@@ -180,7 +187,15 @@ button {
     width: 16vw;
     height: 4vw;
     top: 44.5vw;
-    left: 30vw;
+    left: 33vw;
+}
+
+#spiegel_groot p {
+    position: absolute;
+    font-size: 1vw;
+    top: 43.5vw;
+    left: 17.5vw;
+    color: white;
 }
 
 #game_over {
