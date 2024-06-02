@@ -34,11 +34,11 @@ const Kbar = document.getElementById('K');
 const money = document.getElementById('money');
 
 //muziekjes
-
-const  song1 = new Audio('sound/doom.mp3');
-const  song2 = new Audio('sound/doom2.mp3');
-const  song3 = new Audio('sound/dr_mario.mp3');
-const  aan = new Audio('sound/JBL.mp3');
+//bron = samen met mensen uit de klas uitghevogeld hoe het werkt 
+const  song1 = new Audio('sound/doom.mp3'); //https://youtu.be/cBnyGG4nng4?si=olqz2O92P_p9Iyb0 doom muziek
+const  song2 = new Audio('sound/doom2.mp3'); //https://youtu.be/gf-2SvCIiFQ?si=3cZ9py_aHjX_6Ulc doom muziek2
+const  song3 = new Audio('sound/dr_mario.mp3'); //https://youtu.be/B1VHjkIu16U?si=rcog5xRysxEv_IOc mario muziek
+const  aan = new Audio('sound/JBL.mp3'); //https://youtu.be/RMWjkWLaZAw?si=rJeNOthxiObPCSCn jbl sound effects voor karel aan en uit
 const  uit = new Audio('sound/uit.mp3');
 
 //HAARKLEUREN
@@ -184,10 +184,10 @@ function drink_monster() {
 }
 
 //karel aan & uit
-function karel_aanuit() {
+function karel_aanuit() { //https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp om er achter te komen dat getElementByClassName een HTMLcollection teruggeeft
     if(state_karel === false) {
         for(let i = 0; i < karel_aan.length; i++) {
-            karel_aan[i].style.display = 'block';
+            karel_aan[i].style.display = 'block'; 
         }
         state_karel = true;
         music_small.style.display = 'block'
@@ -227,7 +227,7 @@ function music3() {
 //random haarkleur bepalen en goede plaatjes selecteren
 function bepaal_kleur() {
     if(geld >= 20) {
-        const getal = Math.floor(Math.random() * 3);
+        const getal = Math.floor(Math.random() * 3); //heb andere mensen geholpen hiermee en later zelf toegepast dus heb geen bron maar heb Math.floor van google
 
         if(getal == 0 && monster_animatie != m_rood) {
             ik = 'foto/red.png'
